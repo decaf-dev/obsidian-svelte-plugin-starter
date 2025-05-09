@@ -28,14 +28,14 @@ A modern [Obsidian](https://obsidian.md) plugin starter template that integrates
     ```
 4. To test the plugin locally in your Obsidian vault, create a symbolic link:
 
-```bash
-ln -s /path/to/your/template/dist /path/to/your/vault/.obsidian/plugins/your-plugin-name
-```
+    ```bash
+    ln -s /path/to/your/template/dist /path/to/your/vault/.obsidian/plugins/your-plugin-name
+    ```
 
-e.g.
+    e.g.
 
-```bash
-ln -s /decaf-dev/repos/obsidian-vault-explorer/dist /decaf-dev/desktop/obsidian-development/.obsidian/plugins/obsidian-vault-explorer
-```
+    ```bash
+    ln -s /decaf-dev/repos/my-plugin/dist /decaf-dev/desktop/obsidian-development/.obsidian/plugins/my-plugin
+    ```
 
 5. Open Obsidian. Navigate to **Community Plugins** and enable your plugin
