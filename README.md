@@ -15,6 +15,22 @@ A modern [Obsidian](https://obsidian.md) plugin starter template that integrates
 
 ---
 
+### ✅ Requirements
+
+Before you begin, make sure you have the following installed:
+
+-   [**Bun**](https://bun.sh/) – required for dependency management and running build scripts
+-   **Node.js v22** _(suggested)_ – for optimal compatibility with modern APIs and tooling
+
+You can verify your environment with:
+
+```bash
+bun --version
+node --version
+```
+
+---
+
 ### 📦 Getting Started
 
 1. Click **"Use this template"** on GitHub to create your own plugin repository
@@ -39,3 +55,22 @@ A modern [Obsidian](https://obsidian.md) plugin starter template that integrates
     ```
 
 5. Open Obsidian. Navigate to **Community Plugins** and enable your plugin
+
+### 🔁 Setting Up GitHub Releases
+
+To automatically generate plugin bundles when tagging a new release:
+
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Actions** → **General**
+3. Under **Workflow permissions**, select:  
+   ✅ **Read and write permissions**
+4. Click **Save** to apply changes
+
+    Now, to trigger a release, simply tag a version:
+
+    ```bash
+    git tag 1.1.0
+    git push 1.1.0
+    ```
+
+    This will run the `release.yml` workflow and generate your plugin build in the release assets.
