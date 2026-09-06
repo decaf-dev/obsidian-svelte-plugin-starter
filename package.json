@@ -13,20 +13,20 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
-		"@tsconfig/svelte": "^5.0.4",
+		"@tsconfig/svelte": "^5.0.8",
 		"@types/node": "^22.15.17",
 		"@typescript-eslint/eslint-plugin": "8.59.1",
 		"@typescript-eslint/parser": "8.59.1",
 		"builtin-modules": "5.0.0",
 		"esbuild": "0.25.5",
-		"esbuild-svelte": "^0.9.2",
+		"esbuild-svelte": "^0.9.5",
 		"obsidian": "latest",
-		"svelte-check": "^4.1.7",
-		"svelte-preprocess": "^6.0.3",
+		"svelte-check": "^4.7.6",
+		"svelte-preprocess": "^6.0.5",
 		"tslib": "2.8.1",
 		"typescript": "5.8.3"
 	},
 	"dependencies": {
-		"svelte": "^5.28.2"
+		"svelte": "^5.57.0"
 	}
 }
