@@ -9,10 +9,13 @@ Entries are grouped by date rather than by version.
 
 ### Added
 
+-   Plugin reload after each successful build, through the official Obsidian CLI. Set `OBSIDIAN_VAULT` in a local `.env` (see `.env.example`) to enable it; builds carry on unchanged without it
+-   `bun run reload` script for reloading the plugin without rebuilding
 -   Credit to the official Obsidian sample plugin template in the README
 
 ### Changed
 
+-   The README symlink step now recommends naming the folder under `.obsidian/plugins` after the `id` in `manifest.json`, which is what a reload targets
 -   Simplified README language and reduced emoji usage
 
 ## 2025-05-09

@@ -11,6 +11,7 @@ export default defineConfig(
 		'node_modules',
 		'dist',
 		'esbuild.config.mjs',
+		'reload-plugin.mjs',
 		'version-bump.mjs',
 		'versions.json',
 		'main.js',
