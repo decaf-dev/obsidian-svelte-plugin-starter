@@ -2,6 +2,8 @@
 
 A modern [Obsidian](https://obsidian.md) plugin starter template that integrates [Svelte](https://svelte.dev) for UI development, powered by [esbuild](https://esbuild.github.io/) and [Bun](https://bun.sh/) for fast builds and dependency management.
 
+This is an extension of the official [Obsidian plugin starter template](https://github.com/obsidianmd/obsidian-sample-plugin).
+
 ---
 
 ### ✨ Features
