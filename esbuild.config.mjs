@@ -4,6 +4,7 @@ import fs from "fs";
 import { builtinModules } from "node:module";
 import path from "path";
 import process from "process";
+import { reloadPlugin } from "./reload-plugin.mjs";
 import { sveltePreprocess } from "svelte-preprocess";
 
 const banner = `/*
@@ -17,13 +18,19 @@ const prod = process.argv[2] === "production";
 const rebuildPlugin = {
 	name: "rebuild-handler",
 	setup(build) {
-		build.onEnd(async () => {
+		build.onEnd(async (result) => {
+			// never push a broken bundle into the vault
+			if (result.errors.length > 0) return;
+
 			try {
 				await fs.promises.copyFile(
 					path.join(path.resolve(), "manifest.json"),
 					path.join(path.resolve(), "dist", "manifest.json")
 				);
 			} catch (err) {}
+
+			// the manifest has to be in place before Obsidian re-reads it
+			await reloadPlugin();
 		});
 	},
 };
