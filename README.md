@@ -1,30 +1,28 @@
 # obsidian-svelte-plugin-starter
 
-A modern [Obsidian](https://obsidian.md) plugin starter template that integrates [Svelte](https://svelte.dev) for UI development, powered by [esbuild](https://esbuild.github.io/) and [Bun](https://bun.sh/) for fast builds and dependency management.
+A starter template for building [Obsidian](https://obsidian.md) plugins with [Svelte](https://svelte.dev), bundled by [esbuild](https://esbuild.github.io/) and managed with [Bun](https://bun.sh/).
 
 This is an extension of the official [Obsidian plugin starter template](https://github.com/obsidianmd/obsidian-sample-plugin).
 
 ---
 
-### ✨ Features
+## ✨ Features
 
--   ✅ **Svelte Integration** – Build reactive plugin interfaces using [Svelte](https://svelte.dev)
--   ⚡ **Esbuild for Svelte** – Fast bundling via [esbuild](https://esbuild.github.io/) with Svelte support
--   🐰 **Bun Lockfile** – Uses [Bun](https://bun.sh/) for dependency resolution and a `bun.lockb` file
--   📦 **Standard Structure** – Source code in a `src/` folder, output to a `dist/` folder
--   🔁 **Automatic Rebuilds** – Run `bun run dev` to watch for changes and auto-export to `dist/`
--   🚀 **Release Ready** – Includes a GitHub Actions [`release.yml`](.github/workflows/release.yml) workflow for building and publishing releases
+-   Write your plugin interface in Svelte
+-   Fast bundling with esbuild and `esbuild-svelte`
+-   Bun for dependency management, with a `bun.lock` lockfile
+-   Source code in `src/`, build output in `dist/`
+-   `bun run dev` rebuilds automatically as you save
+-   A GitHub Actions [release workflow](.github/workflows/release.yml) that packages your plugin when you tag a version
 
 ---
 
-### ✅ Requirements
+## ✅ Requirements
 
-Before you begin, make sure you have the following installed:
+-   [Bun](https://bun.sh/) — installs dependencies and runs the build scripts
+-   Node.js v22 — recommended
 
--   [**Bun**](https://bun.sh/) – required for dependency management and running build scripts
--   **Node.js v22** _(suggested)_ – for optimal compatibility with modern APIs and tooling
-
-You can verify your environment with:
+Check what you have installed:
 
 ```bash
 bun --version
@@ -33,46 +31,53 @@ node --version
 
 ---
 
-### 📦 Getting Started
+## 📦 Getting started
 
-1. Click **"Use this template"** on GitHub to create your own plugin repository
+1. Click **Use this template** on GitHub to create your own plugin repository
 2. Install dependencies:
+
     ```bash
     bun install
     ```
-3. Build the plugin into the `dist/` folder, run:
-    ```
+
+3. Start a watch build. It compiles into `dist/` and rebuilds whenever you save:
+
+    ```bash
     bun run dev
     ```
-4. To test the plugin locally in your Obsidian vault, create a symbolic link:
+
+    For a one-off production build, run `bun run build`.
+
+4. Link `dist/` into your vault so Obsidian can load the plugin:
 
     ```bash
-    ln -s /path/to/your/template/dist /path/to/your/vault/.obsidian/plugins/your-plugin-name
+    ln -s /path/to/your/plugin/dist /path/to/your/vault/.obsidian/plugins/your-plugin-name
     ```
 
-    e.g.
+    For example:
 
     ```bash
-    ln -s /decaf-dev/repos/my-plugin/dist /decaf-dev/desktop/obsidian-development/.obsidian/plugins/my-plugin
+    ln -s ~/repos/my-plugin/dist ~/Desktop/obsidian-development/.obsidian/plugins/my-plugin
     ```
 
-5. Open Obsidian. Navigate to **Community Plugins** and enable your plugin
+5. Open Obsidian, go to **Community plugins**, and enable your plugin
 
-### 🔁 Setting Up GitHub Releases
+---
 
-To automatically generate plugin bundles when tagging a new release:
+## 🔁 Releases
 
-1. Go to your repository on GitHub
-2. Navigate to **Settings** → **Actions** → **General**
-3. Under **Workflow permissions**, select:  
-   ✅ **Read and write permissions**
-4. Click **Save** to apply changes
+The included workflow builds your plugin and attaches the files to a GitHub release whenever you push a tag.
 
-    Now, to trigger a release, simply tag a version:
+First, give the workflow permission to create releases:
 
-    ```bash
-    git tag 1.1.0
-    git push 1.1.0
-    ```
+1. Open your repository on GitHub
+2. Go to **Settings → Actions → General**
+3. Under **Workflow permissions**, select **Read and write permissions**
+4. Click **Save**
 
-    This will run the `release.yml` workflow and generate your plugin build in the release assets.
+Then tag a version and push it:
+
+```bash
+git tag 1.1.0
+git push origin 1.1.0
+```
