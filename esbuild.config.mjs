@@ -1,7 +1,7 @@
-import builtins from "builtin-modules";
 import esbuild from "esbuild";
 import esbuildSvelte from "esbuild-svelte";
 import fs from "fs";
+import { builtinModules } from "node:module";
 import path from "path";
 import process from "process";
 import { sveltePreprocess } from "svelte-preprocess";
@@ -48,10 +48,10 @@ const context = await esbuild.context({
 		"@lezer/common",
 		"@lezer/highlight",
 		"@lezer/lr",
-		...builtins,
+		...builtinModules,
 	],
 	format: "cjs",
-	target: "es2018",
+	target: "es2021",
 	logLevel: "info",
 	sourcemap: prod ? false : "inline",
 	treeShaking: true,
