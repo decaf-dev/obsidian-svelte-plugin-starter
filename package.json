@@ -14,6 +14,8 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"@codemirror/state": "6.5.0",
+		"@codemirror/view": "6.38.6",
 		"@eslint/js": "^9.39.4",
 		"@tsconfig/svelte": "^5.0.8",
 		"@types/node": "^22.15.17",
@@ -25,7 +27,7 @@
 		"eslint-plugin-svelte": "^3.23.0",
 		"globals": "^17.6.0",
 		"jiti": "^2.6.1",
-		"obsidian": "latest",
+		"obsidian": "^1.13.1",
 		"svelte-check": "^4.7.6",
 		"svelte-eslint-parser": "^1.8.1",
 		"svelte-preprocess": "^6.0.5",
