@@ -5,6 +5,13 @@ All notable changes to this project are documented in this file, newest first.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Entries are grouped by date rather than by version.
 
+## 2026-11-22
+
+### Changed
+
+-   Updated dependencies: `svelte` 5.59, `obsidian` 1.14.4, `esbuild` 0.28.2, `tslib` 2.9.1, and the Svelte and ESLint tooling
+-   `@codemirror/state` and `@codemirror/view` are now pinned to the versions `obsidian` 1.14.4 expects (6.7.6 and 6.43.13)
+
 ## 2026-09-06
 
 ### Added
