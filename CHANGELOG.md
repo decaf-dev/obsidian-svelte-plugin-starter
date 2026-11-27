@@ -20,6 +20,7 @@ Entries are grouped by date rather than by version.
 -   Node.js 22 or newer is now listed as required rather than recommended
 -   The README symlink step now says to link the main checkout's `dist/`, never a worktree's
 -   The plugin now starts at version `0.1.0` instead of `1.0.0`
+-   `minAppVersion` is now `1.15.0` instead of `1.0.0`
 -   ESLint now ignores `.worktrees/`
 
 ### Fixed
