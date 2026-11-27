@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
@@ -13,6 +13,7 @@ try {
 // a watch session rebuilds constantly, so each message is only ever printed once
 const reported = new Set();
 let cliMissing = false;
+let inWorktree;
 
 function report(message) {
 	if (reported.has(message)) return;
@@ -20,8 +21,43 @@ function report(message) {
 	console.log(message);
 }
 
+/**
+ * True when `cwd` is inside a linked git worktree rather than the main checkout.
+ * Anything that isn't a git repo (or a machine without git) counts as not a worktree.
+ */
+export async function isWorktree(cwd = process.cwd()) {
+	try {
+		const { stdout } = await execFileAsync(
+			"git",
+			["rev-parse", "--path-format=absolute", "--git-dir", "--git-common-dir"],
+			{ cwd }
+		);
+		const [gitDir, commonDir] = stdout.trim().split("\n");
+		return Boolean(gitDir && commonDir) && gitDir !== commonDir;
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * The obsidian CLI exits 0 even when it fails, so success has to be read out of its output.
+ */
+export function reloadSucceeded(output) {
+	return output.split("\n").some((line) => line.startsWith("Reloaded: "));
+}
+
 export async function reloadPlugin() {
 	if (cliMissing) return;
+
+	// the vault links to the main checkout's dist/, so a reload from a worktree
+	// would reload the main checkout's stale files instead of this build
+	inWorktree ??= await isWorktree();
+	if (inWorktree) {
+		report(
+			"[reload] skipped - this is a git worktree. Copy this build into the main checkout's dist/, then run `bun run reload` there."
+		);
+		return;
+	}
 
 	const vault = process.env.OBSIDIAN_VAULT;
 	if (!vault) {
@@ -36,8 +72,9 @@ export async function reloadPlugin() {
 		JSON.parse(readFileSync("manifest.json", "utf8")).id;
 
 	let stdout;
+	let stderr;
 	try {
-		({ stdout } = await execFileAsync("obsidian", [
+		({ stdout, stderr } = await execFileAsync("obsidian", [
 			`vault=${vault}`,
 			"plugin:reload",
 			`id=${pluginId}`,
@@ -54,10 +91,9 @@ export async function reloadPlugin() {
 		return;
 	}
 
-	// the CLI exits 0 even when it fails, so problems have to be read out of stdout
-	const output = stdout.trim();
-	if (output.startsWith("Error:") || output === "Vault not found.") {
-		report(`[reload] ${output}`);
+	const output = `${stdout}${stderr}`.trim();
+	if (!reloadSucceeded(output)) {
+		report(`[reload] failed: ${output || "no output from the obsidian command"}`);
 		return;
 	}
 

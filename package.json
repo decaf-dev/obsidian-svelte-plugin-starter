@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
 	"main": "main.js",
 	"scripts": {
@@ -9,6 +9,7 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"lint": "eslint .",
+		"test": "bun test",
 		"reload": "node reload-plugin.mjs"
 	},
 	"keywords": [],

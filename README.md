@@ -21,7 +21,7 @@ This is an extension of the official [Obsidian plugin starter template](https://
 ## ✅ Requirements
 
 -   [Bun](https://bun.sh/) — installs dependencies and runs the build scripts
--   Node.js v22 — recommended
+-   Node.js 22 or newer — runs the build and reload scripts
 
 Check what you have installed:
 
@@ -61,6 +61,8 @@ node --version
     ln -s ~/repos/my-plugin/dist ~/Desktop/obsidian-development/.obsidian/plugins/my-plugin
     ```
 
+    Always link the **main checkout's** `dist/`, never a git worktree's. A worktree's `dist/` is deleted along with the worktree, which leaves the link dangling.
+
 5. Open Obsidian, go to **Community plugins**, and enable your plugin
 
 ---
@@ -97,22 +99,25 @@ The plugin to reload comes from the `id` field in `manifest.json`. If the folder
 
 Reloading is entirely optional. With no `.env`, or without the CLI installed, the build prints a short note once and carries on. Note that the CLI starts Obsidian if it is not already running.
 
+### Working in a git worktree
+
+Your vault links to the main checkout's `dist/`, so a reload from a worktree would load the main checkout's files, not the worktree's. Builds in a worktree therefore skip the reload. To try a worktree build in Obsidian:
+
+1. Stop any `bun run dev` watch running in the main checkout, or its next rebuild will overwrite the files you copy in.
+2. Copy `dist/main.js` and `dist/manifest.json` from the worktree into the main checkout's `dist/`.
+3. Run `bun run reload` from the main checkout.
+
+When you're done, rebuild in the main checkout to switch back.
+
 ---
 
 ## 🔁 Releases
 
-The included workflow builds your plugin and attaches the files to a GitHub release whenever you push a tag.
+The included workflow builds your plugin and attaches `main.js` and `manifest.json` to a GitHub release whenever you push a tag. It requests the `contents: write` permission itself, so you don't need to change your repository's Actions settings.
 
-First, give the workflow permission to create releases:
-
-1. Open your repository on GitHub
-2. Go to **Settings → Actions → General**
-3. Under **Workflow permissions**, select **Read and write permissions**
-4. Click **Save**
-
-Then tag a version and push it:
+Tag a version and push it:
 
 ```bash
-git tag 1.1.0
-git push origin 1.1.0
+git tag 0.1.0
+git push origin 0.1.0
 ```

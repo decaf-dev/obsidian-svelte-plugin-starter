@@ -9,9 +9,11 @@ import { globalIgnores, defineConfig } from 'eslint/config';
 export default defineConfig(
 	globalIgnores([
 		'node_modules',
+		'.worktrees',
 		'dist',
 		'esbuild.config.mjs',
 		'reload-plugin.mjs',
+		'reload-plugin.test.mjs',
 		'version-bump.mjs',
 		'versions.json',
 		'main.js',
